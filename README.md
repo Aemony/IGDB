@@ -1,10 +1,13 @@
 # IGDB PowerShell Module
-This is a PowerShell module for interfacing with the IGDB API and its endpoints.
 
-It was created to assist me in performing various tasks for the [PCGamingWiki](https://www.pcgamingwiki.com/) (PCGW) community project.
+This is a PowerShell module for interfacing with the IGDB API and its endpoints.
+Refer to https://api-docs.igdb.com/ for the specifics of the API itself.
+
+The module was created to assist me in performing various tasks for the [PCGamingWiki](https://www.pcgamingwiki.com/) (PCGW) community project.
 
 
 ## Installation
+
 1. Download or clone the repository to a local folder called `IGDB`.
 
 2. Launch a new PowerShell session and import the module by using `Import-Module <path-to-the-IGDB-folder>` (e.g. `Import-Module .\IGDB`)
@@ -18,6 +21,7 @@ It was created to assist me in performing various tasks for the [PCGamingWiki](h
    * To disconnect from an active session, use `Disconnect-IGDBSession`
 
 4. Once a connection has been established, use one of the supported [cmdlets](#Cmdlets).
+
 
 ## Examples
 
@@ -79,16 +83,17 @@ checksum             : d36324c5-9dd7-08a0-ba42-f208cb2ee59b
 external_game_source : 1
 ```
 
+
 ## Cmdlets
 
 * All cmdlets supports the same base parameters:
-  * -Where
-  * -Fields (defaults to "*" if empty)
-  * -OrderBy
-  * -Offset
-  * -Limit
+  * `-Where`
+  * `-Fields` (defaults to "*" if empty)
+  * `-OrderBy`
+  * `-Offset`
+  * `-Limit`
 
-* Some cmdlets also support an additional -Search parameter:
+* Some cmdlets also support an additional `-Search` parameter:
   * Search-IGDB
   * Get-IGDBCharacter
   * Get-IGDBCollection
@@ -96,7 +101,9 @@ external_game_source : 1
   * Get-IGDBPlatform
   * Get-IGDBTheme
 
-| API endpoint                         | PowerShell Cmdlet                       |
+* Refer to https://api-docs.igdb.com/ for the specifics of each endpoint.
+
+| API Endpoint                         | PowerShell Cmdlet                       |
 | ------------------------------------ | --------------------------------------- |
 | age_rating_categories                | Get-IGDBAgeRatingCategory               |
 | age_rating_content_description_types | Get-IGDBAgeRatingContentDescriptionType |
@@ -172,7 +179,9 @@ external_game_source : 1
 | websites                             | Get-IGDBWebsite                         |
 | website_types                        | Get-IGDBWebsiteType                     |
 
+
 ## Third-party code
+
 Third-party code is noted in the source code, with the appropriate license links.
 This is a short overview of the code being used:
 
