@@ -93,13 +93,13 @@ external_game_source : 1
   * `-Offset`
   * `-Limit`
 
-* Some cmdlets also support an additional `-Search` parameter:
-  * Search-IGDB
-  * Get-IGDBCharacter
-  * Get-IGDBCollection
-  * Get-IGDBGame
-  * Get-IGDBPlatform
-  * Get-IGDBTheme
+* Searchable endpoints also provide a `Find-` cmdlet:
+  * Find-IGDBCharacter
+  * Find-IGDBCollection
+  * Find-IGDBGame
+  * Find-IGDBPlatform
+  * Find-IGDBTheme
+  * Search-IGDB (searches all searchable endpoints)
 
 * Refer to https://api-docs.igdb.com/ for the specifics of each endpoint.
 
@@ -114,11 +114,11 @@ external_game_source : 1
 | alternative_names                    | Get-IGDBAlternativeName                 |
 | artwork_types                        | Get-IGDBArtworkType                     |
 | artworks                             | Get-IGDBArtwork                         |
-| characters                           | Get-IGDBCharacter                       |
+| characters                           | Get-IGDBCharacter, Find-IGDBCharacter   |
 | character_genders                    | Get-IGDBCharacterGender                 |
 | character_mug_shots                  | Get-IGDBCharacterMugShot                |
 | character_species                    | Get-IGDBCharacterSpecies                |
-| collections                          | Get-IGDBCollection                      |
+| collections                          | Get-IGDBCollection, Find-IGDBCollection |
 | collection_membership_types          | Get-IGDBCollectionMembershipType        |
 | collection_memberships               | Get-IGDBCollectionMembership            |
 | collection_relation_types            | Get-IGDBCollectionRelationType          |
@@ -136,7 +136,7 @@ external_game_source : 1
 | external_game_sources                | Get-IGDBExternalGameSource              |
 | external_games                       | Get-IGDBExternalGame                    |
 | franchises                           | Get-IGDBFranchise                       |
-| games                                | Get-IGDBGame                            |
+| games                                | Get-IGDBGame, Find-IGDBGame             |
 | games/count                          | Get-IGDBGameCount                       |
 | game_engine_logos                    | Get-IGDBGameEngineLogo                  |
 | game_engines                         | Get-IGDBGameEngine                      |
@@ -158,7 +158,7 @@ external_game_source : 1
 | language_supports                    | Get-IGDBLanguageSupport                 |
 | multiplayer_modes                    | Get-IGDBMultiplayerMode                 |
 | network_types                        | Get-IGDBNetworkType                     |
-| platforms                            | Get-IGDBPlatform                        |
+| platforms                            | Get-IGDBPlatform, Find-IGDBPlatform     |
 | platform_families                    | Get-IGDBPlatformFamily                  |
 | platform_logos                       | Get-IGDBPlatformLogo                    |
 | platform_types                       | Get-IGDBPlatformType                    |
@@ -175,7 +175,7 @@ external_game_source : 1
 | release_date_statuses                | Get-IGDBReleaseDateStatus               |
 | screenshots                          | Get-IGDBScreenshot                      |
 | search                               | Search-IGDB                             |
-| themes                               | Get-IGDBTheme                           |
+| themes                               | Get-IGDBTheme, Find-IGDBTheme           |
 | websites                             | Get-IGDBWebsite                         |
 | website_types                        | Get-IGDBWebsiteType                     |
 

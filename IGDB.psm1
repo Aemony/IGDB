@@ -1213,28 +1213,18 @@ function Register-DynamicFunctions
   {
     $Function      = $script:EndpointFunctions.$Endpoint
     $FunctionName  = $Function[0]
-
     $WherePosition = '0'
-    $Searchable    = ''
+    $SearchParam   = ''
 
-    if ($Function[1] -eq $true)
-    {
-      $WherePosition = '1'
-      $Searchable = @"
-    [Parameter(ValueFromPipelineByPropertyName, Position=0)]
-    [string]`$Search, # Search
-"@
-    }
-
-    $Expression = @"
-function $FunctionName
+    $BaseExpression = @"
+function __FunctionName__
 {
   [CmdletBinding()]
   param (
 
-    $Searchable
+    __SearchParam__
 
-    [Parameter(ValueFromPipelineByPropertyName, Position=$WherePosition)]
+    [Parameter(ValueFromPipelineByPropertyName, Position=__WherePosition__)]
     [Alias('Filters')]
     [string]`$Where, # The conditions for the query, corresponding to an SQL WHERE clause
 
@@ -1261,7 +1251,10 @@ function $FunctionName
   End
   {
     if (`$null -eq `$script:Config.BaseURL)
-    { return `$null }
+    {
+      Write-Warning 'No connection to the IGDB API have been established. Use Connect-IGDBSession to connect to the API.'
+      return `$null
+    }
 
     `$Body = ''
 
@@ -1288,15 +1281,49 @@ function $FunctionName
     if (-not [string]::IsNullOrWhiteSpace(`$Offset))
     { `$Body += "offset `$Offset;" }
 
-    `$Response = Invoke-IGDBApiRequest -Uri `$script:Config.BaseURL -Endpoint '$Endpoint' -Body `$Body -Method POST -IgnoreDisconnect -SessionVariable global:IGDBSession
+    `$Response = Invoke-IGDBApiRequest -Uri `$script:Config.BaseURL -Endpoint '__Endpoint__' -Body `$Body -Method POST -IgnoreDisconnect -SessionVariable global:IGDBSession
 
     return `$Response
   }
 }
 "@
 
-    Invoke-Expression -Command $Expression
+    $FunctionGet = $BaseExpression
+    $Mapping = @{
+      '__FunctionName__'  = $FunctionName
+      '__WherePosition__' = $WherePosition
+      '__SearchParam__'   = $SearchParam
+      '__Endpoint__'      = $Endpoint
+    }
+    foreach ($Key in $Mapping.Keys)
+    { $FunctionGet = $FunctionGet.Replace($Key, $Mapping.$Key) }
+
+    Invoke-Expression -Command $FunctionGet
     Export-ModuleMember -Function $FunctionName
+
+    # For searchable functions, we also add a Find-%Endpoint% cmdlet
+    if ($Function[1] -eq $true)
+    {
+      $FunctionName  = $FunctionName.Replace('Get-', 'Find-')
+      $WherePosition = '1'
+      $SearchParam   = @"
+    [Parameter(ValueFromPipelineByPropertyName, Position=0)]
+    [string]`$Search, # Search
+"@
+
+    $FunctionFind = $BaseExpression
+    $Mapping = @{
+      '__FunctionName__'  = $FunctionName
+      '__WherePosition__' = $WherePosition
+      '__SearchParam__'   = $SearchParam
+      '__Endpoint__'      = $Endpoint
+    }
+    foreach ($Key in $Mapping.Keys)
+    { $FunctionFind = $FunctionFind.Replace($Key, $Mapping.$Key) }
+
+    Invoke-Expression -Command $FunctionFind
+    Export-ModuleMember -Function $FunctionName
+    }
   }
 }
 
