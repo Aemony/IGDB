@@ -1,12 +1,14 @@
 # IGDB PowerShell Module
 
 This is a PowerShell module for interfacing with the IGDB API and its endpoints.
-Refer to https://api-docs.igdb.com/ for the specifics of the API itself.
+Refer to the [IGDB API docs](https://api-docs.igdb.com/) for the specifics of the API itself.
 
 The module was created to assist me in performing various tasks for the [PCGamingWiki](https://www.pcgamingwiki.com/) (PCGW) community project.
 
 
 ## Installation
+
+0. An Twitch Account with a registered developer application is required to connect to the API, see the [Account Creation](https://api-docs.igdb.com/#account-creation) chapter over on the IGDB API docs.
 
 1. Download or clone the repository to a local folder called `IGDB`.
 
@@ -20,7 +22,7 @@ The module was created to assist me in performing various tasks for the [PCGamin
    * To use/setup a persistent config: `Connect-IGDBSession -Persistent`
    * To disconnect from an active session, use `Disconnect-IGDBSession`
 
-4. Once a connection has been established, use one of the supported [cmdlets](#Cmdlets).
+4. Once connected, see [examples](#examples) or use one of the supported [cmdlets](#cmdlets) to retrieve data.
 
 
 ## Cmdlets
@@ -40,7 +42,7 @@ The module was created to assist me in performing various tasks for the [PCGamin
   * `Find-IGDBTheme`
   * `Search-IGDB` (searches all searchable endpoints)
 
-* Refer to https://api-docs.igdb.com/ for the specifics of each endpoint.
+* Refer to the [IGDB API docs](https://api-docs.igdb.com/) for the specifics of each endpoint.
 
 | API Endpoint                         | PowerShell Cmdlets                      |
 | ------------------------------------ | --------------------------------------- |
@@ -179,28 +181,41 @@ checksum             : d36324c5-9dd7-08a0-ba42-f208cb2ee59b
 external_game_source : 1
 ```
 
-Search IGDB for all Mirror's Edge games:
+Search IGDB for all Mirror's Edge games and list their names:
 ```powershell
-Find-IGDBGame "Mirror's Edge" | Select-Object -ExpandProperty name
+Find-IGDBGame "Mirror's Edge" -Fields 'name'
 ```
 
 ```txt
-Mirror's Edge
-Mirror's Edge
-Mirror's Edge Catalyst
-Mirror's Edge 2D
-The Mirror's Edge
-Mirror's Edge: Pure Time Trials
-Mirror's Edge Catalyst: Collector's Edition
+    id name
+    -- ----
+ 77348 Mirror's Edge
+  1051 Mirror's Edge
+  2112 Mirror's Edge Catalyst
+ 77347 Mirror's Edge 2D
+341267 The Mirror's Edge
+344631 Mirror's Edge: Pure Time Trials
+ 41618 Mirror's Edge Catalyst: Collector's Edition
 ```
 
-Search IGDB for all items related to Michael Jackson:
+Search IGDB for all items related to Michael Jackson and list their name and internal + game identifiers:
 ```powershell
-Search-IGDB "Michael Jackson"
+Search-IGDB "Michael Jackson" -Fields 'name, id, game'
 ```
 
 ```txt
--snipped 10 results-
+      id   game name
+      --   ---- ----
+22562973 320979 Michael Jackson Baby Drop
+20779023 301726 Michael Jackson The Experience
+20779022 301727 Michael Jackson The Experience
+18148227 262508 Michael Jackson's Moonwalker
+17501239 253617 Michael Jackson's Moonwalker
+15344088 233982 Michael Jackson in Scramble Training
+ 4043565        Michael Jackson (I)
+ 1317302        Michael Jackson's Moonwalker
+ 1280845        Michael Jackson
+  141810  18139 Michael Jackson's Moonwalker
 ```
 
 
