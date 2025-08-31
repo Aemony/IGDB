@@ -451,7 +451,7 @@ function Write-IGDBWarningResultSize
   {
     $Message = if ($ResultSize -eq $DefaultSize) { "By default, only the first $DefaultSize items are returned." }
                                             else { 'There are more results available than currently displayed.'  }
-    $Message += ' Use the ResultSize parameter to specify the number of items returned. To return all items, specify "-ResultSize Unlimited".'
+    $Message += ' Use the Limit parameter to specify the number of items returned.' # To return all items, specify "-ResultSize Unlimited".
     Write-Warning $Message
   }
 }
@@ -1241,7 +1241,7 @@ function __FunctionName__
     [Parameter(ValueFromPipelineByPropertyName)]
     [Alias('ResultSize')]
     [ValidateScript({ Test-IGDBResultSize -InputObject `$PSItem })]
-    [string]`$Limit # A limit on the number of results returned, corresponding to an SQL LIMIT clause
+    [string]`$Limit = 10 # A limit on the number of results returned, corresponding to an SQL LIMIT clause
   )
 
   Begin { }
@@ -1281,7 +1281,12 @@ function __FunctionName__
     if (-not [string]::IsNullOrWhiteSpace(`$Offset))
     { `$Body += "offset `$Offset;" }
 
-    return (Invoke-IGDBApiRequest -Uri `$script:Config.BaseURL -Endpoint '__Endpoint__' -Body `$Body -Method POST -IgnoreDisconnect -SessionVariable global:IGDBSession)
+    `$Results = Invoke-IGDBApiRequest -Uri `$script:Config.BaseURL -Endpoint '__Endpoint__' -Body `$Body -Method POST -IgnoreDisconnect -SessionVariable global:IGDBSession
+
+    if (`$Results.Count -eq `$Limit)
+    { Write-IGDBWarningResultSize -InputObject `$true -DefaultSize 10 -ResultSize `$Limit }
+
+    return `$Results
   }
 }
 "@
