@@ -8,7 +8,7 @@ The module was created to assist me in performing various tasks for the [PCGamin
 
 ## Installation
 
-0. An Twitch Account with a registered developer application is required to connect to the API, see the [Account Creation](https://api-docs.igdb.com/#account-creation) chapter over on the IGDB API docs.
+0. You need a Twitch Account with a [registered developer application](https://api-docs.igdb.com/#account-creation) to be able to connect to the IGDB API.
 
 1. Download or clone the repository to a local folder called `IGDB`.
 
