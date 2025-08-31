@@ -1281,9 +1281,7 @@ function __FunctionName__
     if (-not [string]::IsNullOrWhiteSpace(`$Offset))
     { `$Body += "offset `$Offset;" }
 
-    `$Response = Invoke-IGDBApiRequest -Uri `$script:Config.BaseURL -Endpoint '__Endpoint__' -Body `$Body -Method POST -IgnoreDisconnect -SessionVariable global:IGDBSession
-
-    return `$Response
+    return (Invoke-IGDBApiRequest -Uri `$script:Config.BaseURL -Endpoint '__Endpoint__' -Body `$Body -Method POST -IgnoreDisconnect -SessionVariable global:IGDBSession)
   }
 }
 "@
