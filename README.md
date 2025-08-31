@@ -94,16 +94,16 @@ external_game_source : 1
   * `-Limit`
 
 * Searchable endpoints also provide a `Find-` cmdlet:
-  * Find-IGDBCharacter
-  * Find-IGDBCollection
-  * Find-IGDBGame
-  * Find-IGDBPlatform
-  * Find-IGDBTheme
-  * Search-IGDB (searches all searchable endpoints)
+  * `Find-IGDBCharacter`
+  * `Find-IGDBCollection`
+  * `Find-IGDBGame`
+  * `Find-IGDBPlatform`
+  * `Find-IGDBTheme`
+  * `Search-IGDB` (searches all searchable endpoints)
 
 * Refer to https://api-docs.igdb.com/ for the specifics of each endpoint.
 
-| API Endpoint                         | PowerShell Cmdlet                       |
+| API Endpoint                         | PowerShell Cmdlets                      |
 | ------------------------------------ | --------------------------------------- |
 | age_rating_categories                | Get-IGDBAgeRatingCategory               |
 | age_rating_content_description_types | Get-IGDBAgeRatingContentDescriptionType |
