@@ -23,67 +23,6 @@ The module was created to assist me in performing various tasks for the [PCGamin
 4. Once a connection has been established, use one of the supported [cmdlets](#Cmdlets).
 
 
-## Examples
-
-Retrieve the IGDB ID of a game using its specific name:
-```powershell
-Get-IGDBGame -Where 'name = "Half-Life 2"' -Fields 'id'
-```
-
-```
-id   : 233
-name : Half-Life 2
-```
-
-Retrieve the cover of a game using its IGDB ID:
-```powershell
-Get-IGDBCover -Where 'game = 233'
-```
-
-```txt
-id            : 77288
-alpha_channel : False
-animated      : False
-game          : 233
-height        : 1008
-image_id      : co1nmw
-url           : //images.igdb.com/igdb/image/upload/t_thumb/co1nmw.jpg
-width         : 756
-checksum      : 31724ab3-ac41-fb4a-1b30-4f3d0d690928
-```
-
-Retrieve the External Game Source ID for Steam: 
-```powershell
-Get-IGDBExternalGameSource -Where 'name = "Steam"' -Fields 'id'
-```
-
-```txt
-id         : 1
-name       : Steam
-created_at : 1612529709
-updated_at : 1695207341
-checksum   : 123e4567-e89b-12d3-a456-426614174000
-```
-
-Retrieve the external game details of a game using its Steam App ID:
-```powershell
-Get-IGDBExternalGame -Where 'external_game_source = 1 & uid = "220"'
-```
-
-```txt
-id                   : 15164
-category             : 1
-created_at           : 1494751166
-game                 : 233
-name                 : Half-Life 2
-uid                  : 220
-updated_at           : 1746150583
-url                  : https://store.steampowered.com/app/220
-checksum             : d36324c5-9dd7-08a0-ba42-f208cb2ee59b
-external_game_source : 1
-```
-
-
 ## Cmdlets
 
 * All cmdlets supports the same base parameters:
@@ -178,6 +117,91 @@ external_game_source : 1
 | themes                               | Get-IGDBTheme, Find-IGDBTheme           |
 | websites                             | Get-IGDBWebsite                         |
 | website_types                        | Get-IGDBWebsiteType                     |
+
+
+## Examples
+
+Retrieve the IGDB ID of a game using its specific name:
+```powershell
+Get-IGDBGame -Where 'name = "Half-Life 2"' -Fields 'id'
+```
+
+```
+id   : 233
+name : Half-Life 2
+```
+
+Retrieve the cover of a game using its IGDB ID:
+```powershell
+Get-IGDBCover -Where 'game = 233'
+```
+
+```txt
+id            : 77288
+alpha_channel : False
+animated      : False
+game          : 233
+height        : 1008
+image_id      : co1nmw
+url           : //images.igdb.com/igdb/image/upload/t_thumb/co1nmw.jpg
+width         : 756
+checksum      : 31724ab3-ac41-fb4a-1b30-4f3d0d690928
+```
+
+Retrieve the External Game Source ID for Steam: 
+```powershell
+Get-IGDBExternalGameSource -Where 'name = "Steam"' -Fields 'id'
+```
+
+```txt
+id         : 1
+name       : Steam
+created_at : 1612529709
+updated_at : 1695207341
+checksum   : 123e4567-e89b-12d3-a456-426614174000
+```
+
+Retrieve the external game details of a game using its Steam App ID:
+```powershell
+Get-IGDBExternalGame -Where 'external_game_source = 1 & uid = "220"'
+```
+
+```txt
+id                   : 15164
+category             : 1
+created_at           : 1494751166
+game                 : 233
+name                 : Half-Life 2
+uid                  : 220
+updated_at           : 1746150583
+url                  : https://store.steampowered.com/app/220
+checksum             : d36324c5-9dd7-08a0-ba42-f208cb2ee59b
+external_game_source : 1
+```
+
+Search IGDB for all Mirror's Edge games:
+```powershell
+Find-IGDBGame "Mirror's Edge" | Select-Object -ExpandProperty name
+```
+
+```txt
+Mirror's Edge
+Mirror's Edge
+Mirror's Edge Catalyst
+Mirror's Edge 2D
+The Mirror's Edge
+Mirror's Edge: Pure Time Trials
+Mirror's Edge Catalyst: Collector's Edition
+```
+
+Search IGDB for all items related to Michael Jackson:
+```powershell
+Search-IGDB "Michael Jackson"
+```
+
+```txt
+-snipped 10 results-
+```
 
 
 ## Third-party code
