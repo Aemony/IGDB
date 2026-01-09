@@ -1002,10 +1002,11 @@ function Invoke-IGDBApiRequest
       # Reset every loop
       $Retry   = $false
 
-      $RequestParams = @{
-        Body         = $Body
-        Uri          = ($Uri + $Endpoint)
-        Method       = $Method
+      $RequestParams    = @{
+        Body            = $Body
+        Uri             = ($Uri + $Endpoint)
+        Method          = $Method
+        UseBasicParsing = $true
       }
 
       if ($null -ne $Headers)
