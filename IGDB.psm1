@@ -107,8 +107,9 @@ $MyInvocation.MyCommand.ScriptBlock.Module.OnRemove = { Disconnect-IGDBSession }
 # Global configurations
 $script:ProgressPreference = 'SilentlyContinue' # Suppress progress bar (speeds up Invoke-WebRequest by a ton)
 
-# Global variable to hold the web session
-$global:IGDBSession
+# Global variables
+$global:IGDBSession   # Holds the web session
+$global:IGDBUserAgent # Allows a custom user agent string to be used
 
 # Script variable to indicate the location of the saved config file
 $script:ConfigFileName = $env:LOCALAPPDATA + '\PowerShell\IGDB\config.json'
@@ -1033,6 +1034,13 @@ function Invoke-IGDBApiRequest
       {
         $RequestParams   += @{
           ContentType     = $ContentType
+        }
+      }
+
+      if (-not [string]::IsNullOrWhiteSpace($global:IGDBUserAgent))
+      {
+        $RequestParams   += @{
+          UserAgent       = $global:IGDBUserAgent
         }
       }
 
