@@ -1046,6 +1046,7 @@ function Invoke-IGDBApiRequest
 
       Write-Debug ($RequestParams | ConvertTo-Json -Depth 10)
       $Response = Invoke-WebRequest @RequestParams
+      $Content = [System.Text.Encoding]::UTF8.GetString($Response.RawContentStream.ToArray())
 
       # Built-in : ConvertFrom-Json
       # Custom   : ConvertFrom-JsonToHashtable
@@ -1053,7 +1054,7 @@ function Invoke-IGDBApiRequest
       {
         return $Response
       }
-      elseif ($JsonObject = ConvertFrom-JsonToHashtable $Response.Content)
+      elseif ($JsonObject = ConvertFrom-JsonToHashtable $Content)
       {
         $RateLimited  = $false
         $Disconnected = $false
